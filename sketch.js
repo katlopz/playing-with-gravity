@@ -35,7 +35,11 @@ var prevY;
 var pressedX;
 var pressedY;
 
+let audioStarted = false;
+
 function setup() {
+  getAudioContext().suspend();
+  
   createCanvas(windowWidth,windowHeight);
   noStroke();
 
@@ -152,6 +156,12 @@ function drawBuild() {
 }
 
 function mouseMoved() {
+  // Start audio on user gesture
+  if (!audioStarted) {
+    userStartAudio();
+    audioStarted = true;  
+  }
+  
   // player chooses where the ball drops
   if(!ball.falling) {
     ball.x = mouseX;
